@@ -15,31 +15,31 @@
 Добавление записи
 
 ```
-$ address_book add John Doe +79999999999
+> python address_book.py add John Doe +79999999999
 Added contact "John Doe, +79999999999"
 ```
 
 Удаление записи
 
 ```
-$ address_book remove Max Payne
+> python address_book.py remove Max Payne
 Unknown contact "Max Payne"
 
-$ address_book remove John Doe
+> python address_book.py remove John Doe
 Removed contact "John Doe, +79999999999"
 ```
 
 Поиск записей
 
 ```
-$ address_book find Max
+> python address_book.py find Max
 No results for "Max"
 
-$ address_book find John
+> python address_book.py find John
 Found for "John":
   - "John Doe, +79999999999"
 
-$ address_book find 999
+> python address_book.py find 999
 Found for "999":
   - "John Doe, +79999999999"
 ```
