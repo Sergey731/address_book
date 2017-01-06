@@ -41,13 +41,18 @@ elif sys.argv[1] == 'find':
             if line[i] == '+':
                 book[line[:i]] = line[i:]
 
-    for client_name in book.keys():
-        for part_name in client_name.split():
-            if part_name == str(sys.argv[2]):
-                print("Found for " + part_name + ':' + '\n\t- "' + client_name + ', ' + str(book[client_name]).strip() + '"')
-                break
-        else:
-            print("No results for " + '"' + str(sys.argv[2]) + '"')
+    for key, numbers in book.items():
+        if sys.argv[2] in book[key]:
+            print("Found for " +  '"' + sys.argv[2] + '":\n\t' + '"' + key + ', ' + numbers.strip() + '"')
+            break
+
+        for client_name in book.keys():
+            for part_name in client_name.split():
+                if part_name == str(sys.argv[2]):
+                    print("Found for " + part_name + ':' + '\n\t- "' + client_name + ', ' + str(book[client_name]).strip() + '"')
+                    break
+            else:
+                print("No results for " + '"' + str(sys.argv[2]) + '"')
 
 
 
