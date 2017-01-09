@@ -50,7 +50,7 @@ elif command == 'find':
             print("Found for " + first_name + ':' + '\n\t- "' + client_name + str(book[client_name]).strip() + '"')
             break
         elif first_name not in client_name.split() and counter == 0:
-            print("No results for " + '"' + str(sys.argv[2]) + '"')
+            print("No results for " + '"' + first_name + '"')
 
 
 
