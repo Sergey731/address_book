@@ -8,11 +8,10 @@ first_name = sys.argv[2]
 if command == 'add':
     last_name = sys.argv[3]
     tel_number = sys.argv[4]
-    client = first_name + ' ' + last_name + ';' + tel_number
-    print('Added contact ' + '"' + client + '"')
+    print('Added contact ' + '"' + first_name + ' ' + last_name + ', ' + tel_number + '"')
 
     with open(filename, 'a') as f:
-        f.write(client + '\n')
+        f.write(first_name + ' ' + last_name + ';' + tel_number + '\n')
 
 elif command == 'remove':
     last_name = sys.argv[3]
@@ -20,7 +19,7 @@ elif command == 'remove':
 
     for client_name in book.keys():
         if client_name == first_name + ' ' + last_name:
-            print("Removed contact " + '"' + first_name + ' ' + last_name + book[client_name].strip() + '"')
+            print("Removed contact " + '"' + first_name + ' ' + last_name  + ', '+ book[client_name].strip() + '"')
             del book[client_name]
             break
     else:
@@ -37,17 +36,16 @@ elif command == 'find':
     for key, numbers in book.items(): # Поиск по значению - 999
         if first_name in book[key]:
             counter += 1
-            print("Found for " +  '"' + first_name + '":\n\t' + '"' + key + numbers.strip() + '"')
+            print("Found for " +  '"' + first_name + '":\n\t- ' + '"' + key + ', ' + numbers.strip() + '"')
             break
 
     for client_name in book.keys(): # Поиск по ключу - часть имени - John
         if first_name in client_name.split():
-            print("Found for " + first_name + ':' + '\n\t- "' + client_name + str(book[client_name]).strip() + '"')
+            print("Found for " + first_name + ':' + '\n\t- "' + client_name + ', ' + book[client_name].strip() + '"')
             break
         elif first_name not in client_name.split() and counter == 0:
             print("No results for " + '"' + first_name + '"')
             break
-
 
 
 

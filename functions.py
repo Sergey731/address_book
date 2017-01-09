@@ -5,5 +5,5 @@ def load_contacts_from_file(filename):
         for line in lines:
             for i in range(len(line)):
                 if line[i] == ';':
-                    book[line[:i]] = line[i+1:]
+                    book[line[:i]] = line[i+1:].strip()
     return book
