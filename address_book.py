@@ -38,11 +38,6 @@ elif command == 'find':
         lines = file_object.readlines()
         book = make_dict(lines)
 
-    for line in lines:
-        for i in range(len(line)):
-            if line[i] == ';':
-                book[line[:i]] = line[i:]
-
     for key, numbers in book.items(): # Поиск по значению - 999
         if first_name in book[key]:
             print("Found for " +  '"' + first_name + '":\n\t' + '"' + key + numbers.strip() + '"')
