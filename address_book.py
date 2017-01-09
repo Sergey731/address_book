@@ -1,42 +1,37 @@
 import sys
-from functions import make_dict
+from functions import load_contacts_from_file
 
 filename = 'book.txt'
 command = sys.argv[1]
-first_name = str(sys.argv[2])
+first_name = sys.argv[2]
 
 if command == 'add':
-    last_name = str(sys.argv[3])
-    tel_number = str(sys.argv[4])
-    client_information = first_name + ' ' + last_name + '; ' + tel_number
-    print('Added contact ' + '"' + client_information + '"')
+    last_name = sys.argv[3]
+    tel_number = sys.argv[4]
+    client = first_name + ' ' + last_name + ';' + tel_number
+    print('Added contact ' + '"' + client + '"')
 
-    with open(filename, 'a') as file_object:
-        file_object.write(client_information +'\n')
+    with open(filename, 'a') as f:
+        f.write(client + '\n')
 
 elif command == 'remove':
-    last_name = str(sys.argv[3])
+    last_name = sys.argv[3]
+    book = load_contacts_from_file(filename)
 
-    with open(filename) as file_object:
-        lines = file_object.readlines()
-        book = make_dict(lines)
+    for client_name in book.keys():
+        if client_name == first_name + ' ' + last_name:
+            print("Removed contact " + '"' + first_name + ' ' + last_name + book[client_name].strip() + '"')
+            del book[client_name]
+            break
+    else:
+        print("Unknown contact " + '"' + first_name + ' ' + last_name + '"')
 
-        for client_name in book.keys():
-            if client_name == first_name + ' ' + last_name:
-                print("Removed contact " + '"' + first_name + ' ' + last_name + str(book[client_name]).strip() + '"')
-                del book[client_name]
-                break
-        else:
-            print("Unknown contact " + '"' + first_name + ' ' + last_name + '"')
-
-    with open(filename, 'w') as file_object:
+    with open(filename, 'w') as f:
         for key, value in book.items():
-            file_object.write(key + value)
+            f.write(key + value)
 
 elif command == 'find':
-    with open(filename) as file_object:
-        lines = file_object.readlines()
-        book = make_dict(lines)
+    book = load_contacts_from_file(filename)
 
     counter = 0
     for key, numbers in book.items(): # Поиск по значению - 999
@@ -52,6 +47,7 @@ elif command == 'find':
         elif first_name not in client_name.split() and counter == 0:
             print("No results for " + '"' + first_name + '"')
             break
+
 
 
 

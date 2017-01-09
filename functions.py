@@ -1,8 +1,9 @@
-def make_dict(lines):
+def load_contacts_from_file(filename):
     book = {}
-    for line in lines:
+    with open(filename) as f:
+        lines = f.readlines()
+        for line in lines:
             for i in range(len(line)):
                 if line[i] == ';':
-                    book[line[:i]] = line[i:]
-
+                    book[line[:i]] = line[i+1:]
     return book
