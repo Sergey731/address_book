@@ -38,8 +38,10 @@ elif command == 'find':
         lines = file_object.readlines()
         book = make_dict(lines)
 
+    counter = 0
     for key, numbers in book.items(): # Поиск по значению - 999
         if first_name in book[key]:
+            counter += 1
             print("Found for " +  '"' + first_name + '":\n\t' + '"' + key + numbers.strip() + '"')
             break
 
@@ -47,8 +49,8 @@ elif command == 'find':
         if first_name in client_name.split():
             print("Found for " + first_name + ':' + '\n\t- "' + client_name + str(book[client_name]).strip() + '"')
             break
-        # else:
-        #     print("No results for " + '"' + str(sys.argv[2]) + '"')
+        elif first_name not in client_name.split() and counter == 0:
+            print("No results for " + '"' + str(sys.argv[2]) + '"')
 
 
 
