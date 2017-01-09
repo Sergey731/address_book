@@ -51,6 +51,7 @@ elif command == 'find':
             break
         elif first_name not in client_name.split() and counter == 0:
             print("No results for " + '"' + first_name + '"')
+            break
 
 
 
