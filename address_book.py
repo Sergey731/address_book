@@ -44,10 +44,9 @@ elif command == 'find':
             break
 
     for client_name in book.keys(): # Поиск по ключу - часть имени - John
-        for part_name in client_name.split():
-            if part_name == first_name:
-                print("Found for " + part_name + ':' + '\n\t- "' + client_name + str(book[client_name]).strip() + '"')
-                break
+        if first_name in client_name.split():
+            print("Found for " + first_name + ':' + '\n\t- "' + client_name + str(book[client_name]).strip() + '"')
+            break
         # else:
         #     print("No results for " + '"' + str(sys.argv[2]) + '"')
 
