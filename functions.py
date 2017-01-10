@@ -7,3 +7,5 @@ def load_contacts_from_file(filename):
                 if line[i] == ';':
                     book[line[:i]] = line[i+1:].strip()
     return book
+
+
