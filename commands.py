@@ -15,7 +15,8 @@ def remove(first_name, last_name):
 
     for client_name in book.keys():
         if client_name == '{0} {1}'.format(first_name, last_name):
-            print('Removed contact "{0} {1}, {2}"'.format(first_name, last_name, book[client_name].strip()))
+            print('Removed contact "{0} {1}, {2}"'\
+                  .format(first_name, last_name, book[client_name]))
             del book[client_name]
 
             with open(filename, 'w') as f:
@@ -34,12 +35,14 @@ def find(first_name):
     for key, numbers in book.items(): # Поиск по значению - 999
         if first_name in book[key]:
             counter += 1
-            print('Found for "{0}": \n\t- "{1}, {2}"'.format(first_name, key, numbers.strip()))
+            print('Found for "{0}": \n\t- "{1}, {2}"'\
+                  .format(first_name, key, numbers))
             break
 
     for client_name in book.keys(): # Поиск по ключу - часть имени - John
         if first_name in client_name.split():
-            print('Found for "{0}": \n\t- "{1}, {2}"'.format(first_name, client_name, book[client_name].strip()))
+            print('Found for "{0}": \n\t- "{1}, {2}"'\
+                  .format(first_name, client_name, book[client_name]))
             break
         elif first_name not in client_name.split() and counter == 0:
             print('No results for "{0}"'.format(first_name))
