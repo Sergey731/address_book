@@ -47,3 +47,45 @@ def find(request):
         elif request not in client_name.split() and counter == 0:
             print('No results for "{}"'.format(request))
             break
+
+def help():
+    add_description = '- add - adds a new entry in the address book'
+    remove_description = '- remove - removes the entry from the address book'
+    find_description = '- find - is looking for an entry in the address book'
+
+    add_example = '''
+    Record addition
+    ...
+    > python address_book.py add John Doe +79999999999
+    Added contact "John Doe, +79999999999"
+    ...
+    '''
+    remove_example = '''
+    Deleting records
+    ...
+    > python address_book.py remove Max Payne
+    Unknown contact "Max Payne"
+
+    > python address_book.py remove John Doe
+    Removed contact "John Doe, +79999999999"
+    ...
+    '''
+    find_example = '''
+    Search records
+    ...
+    > python address_book.py find Max
+    No results for "Max"
+
+    > python address_book.py find John
+    Found for "John":
+        - "John Doe, +79999999999"
+
+    > python address_book.py find 999
+    Found for "999":
+        - "John Doe, +79999999999"
+    ...
+    '''
+
+    print('Commands: \n{}\n{}\n{}\n'.format(add_description, remove_description, find_description))
+    print('Examples: \n{}{}{}'.format(add_example, remove_example, find_example))
+
