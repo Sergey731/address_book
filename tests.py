@@ -27,10 +27,19 @@ def testAddTwoContacts():
         actual = f.read()
 
         print("* Adds two contacts to file: {}".format(expected == actual))
-testAddTwoContacts()
+# testAddTwoContacts()
 
 
 def testRemoveContact():
+    remove_file('book.txt')
+
+    add('John', 'Doe', '+79999999999')
+
+    with open('book.txt') as f:
+        expected = 'John Doe;+79999999999\n'
+        actual = f.read()
+
+        print("* Adds contact to file: {}".format(expected == actual))
 
     remove('John', 'Doe')
 
@@ -43,6 +52,16 @@ def testRemoveContact():
 
 
 def testRemoveOneContactOfTwo():
+    remove_file('book.txt')
+
+    add('John', 'Doe', '+79999999999')
+    add('Max', 'Payne', '+78888888888')
+
+    with open('book.txt') as f:
+        expected = 'John Doe;+79999999999\nMax Payne;+78888888888\n'
+        actual = f.read()
+
+        print("* Adds two contacts to file: {}".format(expected == actual))
 
     remove('John', 'Doe')
 
@@ -51,4 +70,4 @@ def testRemoveOneContactOfTwo():
         actual = f.read()
 
         print("* Removes one contact of two from file: {}".format(expected == actual))
-testRemoveContact()
+# testRemoveOneContactOfTwo()
