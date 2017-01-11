@@ -33,8 +33,7 @@ def testRemoveContact():
 
     add('John', 'Doe', '+79999999999')
 
-    with open('book.txt') as f:
-        remove('John', 'Doe')
+    remove('John', 'Doe')
 
     with open('book.txt') as f:
         expected = ''
@@ -49,8 +48,7 @@ def testRemoveOneContactOfTwo():
     add('John', 'Doe', '+79999999999')
     add('Max', 'Payne', '+78888888888')
 
-    with open('book.txt') as f:
-        remove('John', 'Doe')
+    remove('John', 'Doe')
 
     with open('book.txt') as f:
         expected = 'Max Payne;+78888888888\n'
