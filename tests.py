@@ -13,7 +13,6 @@ def testAddContact():
         actual = f.read()
 
         print("* Adds contact to file: {}".format(expected == actual))
-testAddContact()
 
 
 def testAddTwoContacts():
@@ -27,7 +26,6 @@ def testAddTwoContacts():
         actual = f.read()
 
         print("* Adds two contacts to file: {}".format(expected == actual))
-# testAddTwoContacts()
 
 
 def testRemoveContact():
@@ -48,7 +46,6 @@ def testRemoveContact():
         actual = f.read()
 
         print("* Removes one contact from file: {}".format(expected == actual))
-# testRemoveContact()
 
 
 def testRemoveOneContactOfTwo():
@@ -70,4 +67,9 @@ def testRemoveOneContactOfTwo():
         actual = f.read()
 
         print("* Removes one contact of two from file: {}".format(expected == actual))
-# testRemoveOneContactOfTwo()
+
+
+testAddContact()
+testAddTwoContacts()
+testRemoveContact()
+testRemoveOneContactOfTwo()
