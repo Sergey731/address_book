@@ -1,6 +1,6 @@
 import sys
 
-from commands import add, remove, find
+from commands import add, remove, find, help
 
 
 command = sys.argv[1]
@@ -14,6 +14,6 @@ elif command == 'remove':
 elif command == 'find':
     find(sys.argv[2])
 
-
-
+elif command == 'help':
+    help()
 

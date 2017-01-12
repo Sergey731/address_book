@@ -1,40 +1,63 @@
-from os import remove
+from os import remove as remove_file
 
-from commands import add
+from commands import add, remove
 
 
 def testAddContact():
-	remove('book.txt')
+    remove_file('book.txt')
 
-	add('John', 'Doe', '+79999999999')
+    add('John', 'Doe', '+79999999999')
 
-	with open('book.txt') as f:
-		expected = 'John Doe;+79999999999\n'
-		actual = f.read()
+    with open('book.txt') as f:
+        expected = 'John Doe;+79999999999\n'
+        actual = f.read()
 
-		print("* Adds contact to file: {}".format(expected == actual))
-testAddContact()
+        print("* Adds contact to file: {}".format(expected == actual))
 
 
 def testAddTwoContacts():
-	remove('book.txt')
+    remove_file('book.txt')
 
-	add('John', 'Doe', '+79999999999')
-	add('Max', 'Payne', '+78888888888')
+    add('John', 'Doe', '+79999999999')
+    add('Max', 'Payne', '+78888888888')
 
-	with open('book.txt') as f:
-		expected = 'John Doe;+79999999999\nMax Payne;+78888888888\n'
-		actual = f.read()
+    with open('book.txt') as f:
+        expected = 'John Doe;+79999999999\nMax Payne;+78888888888\n'
+        actual = f.read()
 
-		print("* Adds two contacts to file: {}".format(expected == actual))
-testAddTwoContacts()
+        print("* Adds two contacts to file: {}".format(expected == actual))
 
 
 def testRemoveContact():
-	pass
-testRemoveContact()
+    remove_file('book.txt')
+
+    add('John', 'Doe', '+79999999999')
+
+    remove('John', 'Doe')
+
+    with open('book.txt') as f:
+        expected = ''
+        actual = f.read()
+
+        print("* Removes one contact from file: {}".format(expected == actual))
 
 
 def testRemoveOneContactOfTwo():
-	pass
+    remove_file('book.txt')
+
+    add('John', 'Doe', '+79999999999')
+    add('Max', 'Payne', '+78888888888')
+
+    remove('John', 'Doe')
+
+    with open('book.txt') as f:
+        expected = 'Max Payne;+78888888888\n'
+        actual = f.read()
+
+        print("* Removes one contact of two from file: {}".format(expected == actual))
+
+
+testAddContact()
+testAddTwoContacts()
 testRemoveContact()
+testRemoveOneContactOfTwo()
