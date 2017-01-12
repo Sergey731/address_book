@@ -5,6 +5,18 @@ filename = 'book.txt'
 
 
 def add(first_name, last_name, tel_number):
+    book = load_contacts_from_file(filename)
+
+    for client_name in book.keys():
+        if client_name == '{} {}'.format(first_name, last_name):
+            del book[client_name]
+
+            with open(filename, 'w') as f:
+                for key, value in book.items():
+                    f.write('{};{}\n'.format(key, value))
+
+            break
+
     print('Added contact "{} {}, {}"'.format(first_name, last_name, tel_number))
     with open(filename, 'a') as f:
         f.write('{} {};{}\n'.format(first_name, last_name, tel_number))
