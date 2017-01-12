@@ -64,31 +64,26 @@ def find(request):
 def help():
     print(
     '''
-    Commands:
+Commands:
 
     - add - adds a new entry in the address book
     - remove - removes the entry from the address book
     - find - is looking for an entry in the address book
 
-    Examples:
+Examples:
 
     Record addition
-    ...
     > python address_book.py add John Doe +79999999999
     Added contact "John Doe, +79999999999"
-    ...
 
     Deleting records
-    ...
     > python address_book.py remove Max Payne
     Unknown contact "Max Payne"
 
     > python address_book.py remove John Doe
     Removed contact "John Doe, +79999999999"
-    ...
 
     Search records
-    ...
     > python address_book.py find Max
     No results for "Max"
 
@@ -99,7 +94,7 @@ def help():
     > python address_book.py find 999
     Found for "999":
         - "John Doe, +79999999999"
-    ...''')
+    ''')
 
 
 
