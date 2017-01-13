@@ -1,5 +1,6 @@
 from commands import add, remove
 from storage import delete_all_contacts
+from models import Contact
 
 
 def testAddContact():
@@ -55,8 +56,17 @@ def testRemoveOneContactOfTwo():
 
         print("* Removes one contact of two from file: {}".format(expected == actual))
 
+def testContact():
+    john = Contact('John Doe', '+79999999999')
+
+    if john.name == 'John Doe' and john.phone == '+79999999999':
+        print("* Contact created")
+    else:
+        print("* Contact not created")
+
 
 testAddContact()
 testAddTwoContacts()
 testRemoveContact()
 testRemoveOneContactOfTwo()
+testContact()
