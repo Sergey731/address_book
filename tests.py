@@ -1,10 +1,9 @@
-from os import remove as remove_file
-
 from commands import add, remove
+from storage import delete_all_contacts
 
 
 def testAddContact():
-    remove_file('book.txt')
+    delete_all_contacts()
 
     add('John', 'Doe', '+79999999999')
 
@@ -16,7 +15,7 @@ def testAddContact():
 
 
 def testAddTwoContacts():
-    remove_file('book.txt')
+    delete_all_contacts()
 
     add('John', 'Doe', '+79999999999')
     add('Max', 'Payne', '+78888888888')
@@ -29,7 +28,7 @@ def testAddTwoContacts():
 
 
 def testRemoveContact():
-    remove_file('book.txt')
+    delete_all_contacts()
 
     add('John', 'Doe', '+79999999999')
 
@@ -43,7 +42,7 @@ def testRemoveContact():
 
 
 def testRemoveOneContactOfTwo():
-    remove_file('book.txt')
+    delete_all_contacts()
 
     add('John', 'Doe', '+79999999999')
     add('Max', 'Payne', '+78888888888')
