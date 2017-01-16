@@ -1,7 +1,4 @@
-from functions import load_contacts_from_file
 from storage import add_contact, delete_contact, find_contact
-
-filename = 'book.txt'
 
 
 def add(first_name, last_name, tel_number):
@@ -12,11 +9,20 @@ def add(first_name, last_name, tel_number):
 
 
 def remove(first_name, last_name):
-    print(delete_contact(first_name, last_name))
+    name = '{} {}'.format(first_name, last_name)
+    result = delete_contact(name)
+    if result != None:
+        print('Removed contact "{}, {}"'.format(name, result['phone']))
+    else:
+        print('Unknown contact "{}"'.format(name))
 
 
 def find(request):
-    print(find_contact(request))
+    result = find_contact(request)
+    if result != None:
+        print('Found for "{}":'.format(request) + '\n\t- "{}, {}"'.format(result['name'], result['phone']))
+    else:
+        print('No results for "{}"'.format(request))
 
 
 def help():
@@ -53,6 +59,4 @@ Examples:
     Found for "999":
         - "John Doe, +79999999999"
     ''')
-
-
 
