@@ -1,5 +1,5 @@
 from commands import add, remove, find
-from storage import delete_all_contacts, find_contact, add_contact
+from storage import delete_all_contacts, find_contact, add_contact, delete_contact
 
 
 def testAddContact():
@@ -44,10 +44,10 @@ def testRemoveContact():
 def testRemoveOneContactOfTwo():
     delete_all_contacts()
 
-    add('John', 'Doe', '+79999999999')
-    add('Max', 'Payne', '+78888888888')
+    add_contact('John Doe', '+79999999999')
+    add_contact('Max Payne', '+78888888888')
 
-    remove('John', 'Doe')
+    delete_contact('John Doe')
 
     with open('book.txt') as f:
         expected = 'Max Payne;+78888888888\n'
@@ -62,13 +62,12 @@ def testFindOneContactByPartOfContact():
     add_contact('John Doe', '+79999999999')
     add_contact('Max Payne', '+78888888999')
 
-
     result = find_contact('John')
-    expectation = (result['name'] == 'John Doe')
+    expectation = (result.name == 'John Doe')
     print(expectation)
 
     result = find_contact('888')
-    expectation = (result['phone'] == '+78888888999')
+    expectation = (result.phone == '+78888888999')
     print(expectation)
 
     result = find_contact('Peter')
@@ -80,5 +79,5 @@ def testFindOneContactByPartOfContact():
 # testAddContact()
 # testAddTwoContacts()
 # testRemoveContact()
-# testRemoveOneContactOfTwo()
-testFindOneContactByPartOfContact()
+testRemoveOneContactOfTwo()
+# testFindOneContactByPartOfContact()

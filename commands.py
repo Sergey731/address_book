@@ -3,24 +3,24 @@ from storage import add_contact, delete_contact, find_contact
 
 def add(first_name, last_name, tel_number):
     name = '{} {}'.format(first_name, last_name)
-    add_contact(name, tel_number)
-
-    print('Added contact "{} {}, {}"'.format(first_name, last_name, tel_number))
+    result = add_contact(name, tel_number)
+    print('Added contact "{}, {}"'.format(result.name, result.phone))
 
 
 def remove(first_name, last_name):
     name = '{} {}'.format(first_name, last_name)
     result = delete_contact(name)
-    if result != None:
-        print('Removed contact "{}, {}"'.format(name, result['phone']))
+    if result is not None:
+        print('Removed contact "{}, {}"'.format(result.name, result.phone))
     else:
         print('Unknown contact "{}"'.format(name))
 
 
 def find(request):
     result = find_contact(request)
-    if result != None:
-        print('Found for "{}":'.format(request) + '\n\t- "{}, {}"'.format(result['name'], result['phone']))
+    if result is not None:
+        print('Found for "{}":'.format(request))
+        print('\t- "{}, {}"'.format(result.name, result.phone))
     else:
         print('No results for "{}"'.format(request))
 
