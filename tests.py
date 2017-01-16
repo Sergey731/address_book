@@ -1,4 +1,4 @@
-from commands import add, remove
+from commands import add, remove, find
 from storage import delete_all_contacts
 
 
@@ -56,7 +56,20 @@ def testRemoveOneContactOfTwo():
         print("* Removes one contact of two from file: {}".format(expected == actual))
 
 
-testAddContact()
-testAddTwoContacts()
-testRemoveContact()
-testRemoveOneContactOfTwo()
+def testFindOneContactByPartOfContact():
+    delete_all_contacts()
+
+    add('John', 'Doe', '+79999999999')
+    add('Max', 'Payne', '+78888888888')
+
+    find('John')
+    find('888')
+    find('Peter')
+
+
+
+# testAddContact()
+# testAddTwoContacts()
+# testRemoveContact()
+# testRemoveOneContactOfTwo()
+testFindOneContactByPartOfContact()
