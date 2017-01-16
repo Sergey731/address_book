@@ -59,7 +59,7 @@ def find_contact(query):
             return result
 
     for client_name in book.keys(): # Поиск по ключу - часть имени - John
-        if query in client_name.split():
+        if query in client_name:
             result = {
                 'name': client_name,
                 'phone': book[client_name]

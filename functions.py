@@ -1,8 +1,8 @@
 def load_contacts_from_file(filename):
     book = {}
     with open(filename) as f:
-        lines = f.readlines()
-        for line in lines:
+        # lines = f.readlines()
+        for line in f:
             line = line.strip()
             if len(line) == 0:
                 continue

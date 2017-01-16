@@ -1,5 +1,5 @@
 from commands import add, remove, find
-from storage import delete_all_contacts
+from storage import delete_all_contacts, find_contact, add_contact
 
 
 def testAddContact():
@@ -59,12 +59,21 @@ def testRemoveOneContactOfTwo():
 def testFindOneContactByPartOfContact():
     delete_all_contacts()
 
-    add('John', 'Doe', '+79999999999')
-    add('Max', 'Payne', '+78888888888')
+    add_contact('John Doe', '+79999999999')
+    add_contact('Max Payne', '+78888888999')
 
-    find('John')
-    find('888')
-    find('Peter')
+
+    result = find_contact('John')
+    expectation = (result['name'] == 'John Doe')
+    print(expectation)
+
+    result = find_contact('888')
+    expectation = (result['phone'] == '+78888888999')
+    print(expectation)
+
+    result = find_contact('Peter')
+    expectation = (result is None)
+    print(expectation)
 
 
 
