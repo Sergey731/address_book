@@ -6,3 +6,5 @@ class Contact():
     @property
     def key(self):
         return "{}_{}".format(self.name, self.phone)
+
+

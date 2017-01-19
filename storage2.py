@@ -21,7 +21,7 @@ class Storage:
 
 class MemoryStorage(Storage):
     def __init__(self):
-        self.contacts = {};
+        self.contacts = {}
 
     def add_contact(self, contact):
         self.contacts[contact.key] = contact
@@ -38,7 +38,6 @@ class MemoryStorage(Storage):
 
     def clear_contacts(self):
         self.contacts = {}
-
 
 class FileStorage(Storage):
     pass
