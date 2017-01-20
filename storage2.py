@@ -1,4 +1,5 @@
 from models import Contact
+from functions import load_contacts_from_file
 
 
 class Storage:
@@ -40,7 +41,51 @@ class MemoryStorage(Storage):
         self.contacts = {}
 
 class FileStorage(Storage):
-    pass
+    def __init__(self, filename):
+        self.filename = filename
+
+
+    def add_contact(self, contact):
+        book = load_contacts_from_file(self.filename)
+        book[contact.name] = contact.phone
+
+        with open(self.filename, 'w') as f:
+            for name, phone in book.items():
+                f.write('{};{}\n'.format(name, phone))
+        return True
+
+
+    def delete_contact(self, contact):
+        book = load_contacts_from_file(self.filename)
+
+        for client_name in book.keys():
+            if client_name == contact.name:
+                result = Contact(client_name, book[client_name])
+                del book[client_name]
+
+                with open(self.filename, 'w') as f:
+                    for key, value in book.items():
+                        f.write('{};{}\n'.format(key, value))
+                return result
+
+
+    def delete_all_contacts(self):
+        book = load_contacts_from_file(self.filename)
+        with open(self.filename, 'w') as f:
+            f.write('')
+
+
+    def find_contacts(self, query):
+        book = load_contacts_from_file(self.filename)
+
+        for name, phone in book.items(): # Поиск по значению - 999
+            if query in book[name]:
+                return Contact(name, book[name])
+
+        for client_name in book.keys(): # Поиск по ключу - часть имени - John
+            if query in client_name:
+                return Contact(client_name, book[client_name])
+
 
 
 class SqlStorage(Storage):
