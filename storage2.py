@@ -55,7 +55,7 @@ class FileStorage(Storage):
         return True
 
 
-    def delete_contact(self, contact):
+    def remove_contact(self, contact):
         book = load_contacts_from_file(self.filename)
 
         for client_name in book.keys():
@@ -69,22 +69,27 @@ class FileStorage(Storage):
                 return result
 
 
-    def delete_all_contacts(self):
+    def find_contacts(self, query):
+        book = load_contacts_from_file(self.filename)
+        result = []
+
+        for name, phone in book.items(): # Поиск по значению - 999
+            if query in book[name]:
+                result.append(Contact(name, book[name]))
+
+        for client_name in book.keys(): # Поиск по ключу - часть имени - John
+            if query in client_name:
+                result.append(Contact(client_name, book[client_name]))
+
+        return result
+
+
+    def clear_contacts(self):
         book = load_contacts_from_file(self.filename)
         with open(self.filename, 'w') as f:
             f.write('')
 
 
-    def find_contacts(self, query):
-        book = load_contacts_from_file(self.filename)
-
-        for name, phone in book.items(): # Поиск по значению - 999
-            if query in book[name]:
-                return Contact(name, book[name])
-
-        for client_name in book.keys(): # Поиск по ключу - часть имени - John
-            if query in client_name:
-                return Contact(client_name, book[client_name])
 
 
 

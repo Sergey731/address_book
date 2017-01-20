@@ -177,7 +177,7 @@ class TestFileStorage(unittest.TestCase):
 
         results = storage.find_contacts('Tom Pen')
         self.assertFalse(results)
-        
+
 
 if __name__ == '__main__':
     unittest.main()
