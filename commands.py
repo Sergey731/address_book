@@ -1,28 +1,38 @@
-from storage import add_contact, delete_contact, find_contact
+from models import Contact
+from storage2 import FileStorage
 
 
 def add(first_name, last_name, tel_number):
+    storage = FileStorage('book.txt')
     name = '{} {}'.format(first_name, last_name)
-    result = add_contact(name, tel_number)
-    print('Added contact "{}, {}"'.format(result.name, result.phone))
+    contact = Contact(name, tel_number)
+    result = storage.add_contact(contact)
+    if result:
+        print('Added contact "{}, {}"'.format(contact.name, contact.phone))
+    else:
+        print('Error!')
 
 
 def remove(first_name, last_name):
+    storage = FileStorage('book.txt')
     name = '{} {}'.format(first_name, last_name)
-    result = delete_contact(name)
-    if result is not None:
-        print('Removed contact "{}, {}"'.format(result.name, result.phone))
-    else:
+    result = storage.find_contacts(name)
+    if len(result) == 0:
         print('Unknown contact "{}"'.format(name))
+    else:
+        storage.remove_contact(result[0])
+        print('Removed contact "{}, {}"'.format(result[0].name, result[0].phone))
 
 
 def find(request):
-    result = find_contact(request)
-    if result is not None:
-        print('Found for "{}":'.format(request))
-        print('\t- "{}, {}"'.format(result.name, result.phone))
-    else:
+    storage = FileStorage('book.txt')
+    results = storage.find_contacts(request)
+    if results == []:
         print('No results for "{}"'.format(request))
+    else:
+        for contact in results:
+            print('Found for "{}":'.format(request))
+            print('\t- "{}, {}"'.format(contact.name, contact.phone))
 
 
 def help():
