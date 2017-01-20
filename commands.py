@@ -2,8 +2,10 @@ from models import Contact
 from storage2 import FileStorage
 
 
+storage = FileStorage('book.txt')
+
+
 def add(first_name, last_name, tel_number):
-    storage = FileStorage('book.txt')
     name = '{} {}'.format(first_name, last_name)
     contact = Contact(name, tel_number)
     result = storage.add_contact(contact)
@@ -14,7 +16,6 @@ def add(first_name, last_name, tel_number):
 
 
 def remove(first_name, last_name):
-    storage = FileStorage('book.txt')
     name = '{} {}'.format(first_name, last_name)
     result = storage.find_contacts(name)
     if len(result) == 0:
@@ -25,9 +26,8 @@ def remove(first_name, last_name):
 
 
 def find(request):
-    storage = FileStorage('book.txt')
     results = storage.find_contacts(request)
-    if results == []:
+    if len(results) == 0:
         print('No results for "{}"'.format(request))
     else:
         for contact in results:
