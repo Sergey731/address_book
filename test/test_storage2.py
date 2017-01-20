@@ -93,6 +93,7 @@ class TestMemoryStorage(unittest.TestCase):
 class TestFileStorage(unittest.TestCase):
     def test_creation(self):
         storage = FileStorage('book.txt')
+        storage.clear_contacts()
 
         self.assertTrue(isinstance(storage, FileStorage))
         self.assertTrue(type(storage) == FileStorage)
@@ -100,50 +101,47 @@ class TestFileStorage(unittest.TestCase):
 
     def test_add_contact(self):
         storage = FileStorage('book.txt')
+        storage.clear_contacts()
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
         storage.add_contact(john)
         results = storage.find_contacts('John Doe')
 
-        self.assertEqual(results.name, 'John Doe')
-        self.assertEqual(john.name, results.name)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(john.name, results[0].name)
 
         storage.add_contact(tom)
         results = storage.find_contacts('+7888')
 
-        self.assertEqual(results.phone, '+7888')
-        self.assertEqual(tom.phone, results.phone)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(tom.phone, results[0].phone)
 
         self.assertNotEqual(john.key, tom.key)
-
-        storage.delete_all_contacts()
 
 
     def test_remove_contact(self):
         storage = FileStorage('book.txt')
+        storage.clear_contacts()
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
         storage.add_contact(john)
         storage.add_contact(tom)
 
-        storage.delete_contact(john)
-
+        storage.remove_contact(john)
         results = storage.find_contacts('Tom Pen')
-        self.assertTrue(results)
 
-        results = storage.find_contacts('+7888')
-        self.assertTrue(results)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(tom.name, results[0].name)
 
-        results = storage.find_contacts('+7999')
-        self.assertFalse(results)
-
-        storage.delete_all_contacts()
+        results = storage.find_contacts('John Doe')
+        self.assertEqual(len(results), 0)
 
 
     def test_find_contacts(self):
         storage = FileStorage('book.txt')
+        storage.clear_contacts()
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
@@ -159,33 +157,27 @@ class TestFileStorage(unittest.TestCase):
         results = storage.find_contacts('+7555')
         self.assertFalse(results)
 
-        # results = storage.find_contacts('+7')
-        # self.assertEqual(results.phone, 2)
-
-        storage.delete_all_contacts()
+        results = storage.find_contacts('+7')
+        self.assertEqual(len(results), 2)
 
 
     def test_clear_contacts(self):
         storage = FileStorage('book.txt')
+        storage.clear_contacts()
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
         storage.add_contact(john)
         storage.add_contact(tom)
 
-        storage.delete_all_contacts()
+        storage.clear_contacts()
 
         results = storage.find_contacts('John Doe')
         self.assertFalse(results)
 
         results = storage.find_contacts('Tom Pen')
         self.assertFalse(results)
-
-
-
-    # дописать тесты для всех методов
-    # можно даже по несколько тестов на метод
-
+        
 
 if __name__ == '__main__':
     unittest.main()
