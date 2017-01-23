@@ -1,6 +1,7 @@
+import os
 import unittest
 
-from storage2 import MemoryStorage, FileStorage
+from storage import MemoryStorage, FileStorage
 from models import Contact
 
 '''
@@ -91,9 +92,15 @@ class TestMemoryStorage(unittest.TestCase):
 
 
 class TestFileStorage(unittest.TestCase):
+    filename = 'book.txt'
+
+
+    def tearDown(self):
+        os.remove(self.filename)
+
+
     def test_creation(self):
         storage = FileStorage('book.txt')
-        storage.clear_contacts()
 
         self.assertTrue(isinstance(storage, FileStorage))
         self.assertTrue(type(storage) == FileStorage)
@@ -101,7 +108,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_add_contact(self):
         storage = FileStorage('book.txt')
-        storage.clear_contacts()
+
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
@@ -122,7 +129,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_remove_contact(self):
         storage = FileStorage('book.txt')
-        storage.clear_contacts()
+
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
@@ -141,7 +148,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_find_contacts(self):
         storage = FileStorage('book.txt')
-        storage.clear_contacts()
+
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 
@@ -163,7 +170,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_clear_contacts(self):
         storage = FileStorage('book.txt')
-        storage.clear_contacts()
+
         john = Contact('John Doe', '+7999')
         tom = Contact('Tom Pen', '+7888')
 

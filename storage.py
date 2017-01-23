@@ -43,6 +43,7 @@ class MemoryStorage(Storage):
 class FileStorage(Storage):
     def __init__(self, filename):
         self.filename = filename
+        open(self.filename, 'a').close()
 
 
     def add_contact(self, contact):
