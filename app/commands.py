@@ -1,5 +1,5 @@
-from models import Contact
-from storage import FileStorage
+from app.models import Contact
+from app.storage import FileStorage
 
 
 storage = FileStorage('book.txt')

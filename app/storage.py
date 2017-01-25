@@ -1,5 +1,7 @@
-from models import Contact
-from functions import load_contacts_from_file
+import mysql.connector
+from mysql.connector import errorcode
+
+from app.models import Contact
 
 
 class Storage:
@@ -40,14 +42,30 @@ class MemoryStorage(Storage):
     def clear_contacts(self):
         self.contacts = {}
 
+
 class FileStorage(Storage):
     def __init__(self, filename):
         self.filename = filename
         open(self.filename, 'a').close()
 
 
+    def load_contacts_from_file(self, filename):
+        book = {}
+        with open(filename) as f:
+            # lines = f.readlines()
+            for line in f:
+                line = line.strip()
+                if len(line) == 0:
+                    continue
+                for i in range(len(line)):
+                    if line[i] == ';':
+                        book[line[:i]] = line[i+1:]
+
+        return book
+
+
     def add_contact(self, contact):
-        book = load_contacts_from_file(self.filename)
+        book = self.load_contacts_from_file(self.filename)
         book[contact.name] = contact.phone
 
         with open(self.filename, 'w') as f:
@@ -57,7 +75,7 @@ class FileStorage(Storage):
 
 
     def remove_contact(self, contact):
-        book = load_contacts_from_file(self.filename)
+        book = self.load_contacts_from_file(self.filename)
 
         for client_name in book.keys():
             if client_name == contact.name:
@@ -71,7 +89,7 @@ class FileStorage(Storage):
 
 
     def find_contacts(self, query):
-        book = load_contacts_from_file(self.filename)
+        book = self.load_contacts_from_file(self.filename)
         result = []
 
         for name, phone in book.items(): # Поиск по значению - 999
@@ -86,13 +104,25 @@ class FileStorage(Storage):
 
 
     def clear_contacts(self):
-        book = load_contacts_from_file(self.filename)
+        book = self.load_contacts_from_file(self.filename)
         with open(self.filename, 'w') as f:
             f.write('')
 
 
-
-
-
 class SqlStorage(Storage):
-    pass
+    def __init__(self, host, user, password, database):
+        self.cnx = mysql.connector.connect(
+            host=host, user=user, password=password, database=database)
+
+
+    def __del__(self):
+        self.cnx.cursor().close()
+        self.cnx.close()
+
+
+    def add_contact(self, contact):
+        query = 'INSERT INTO contacts (first_name, last_name, phone) VALUES (%s, %s, %s)'
+        data = ('John', 'Doe', '+79999999999')
+        self.cnx.cursor().execute(query, data)
+        self.cnx.commit()
+        return True

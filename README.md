@@ -43,3 +43,11 @@ Found for "John":
 Found for "999":
   - "John Doe, +79999999999"
 ```
+
+virtualenv
+----------
+
+```
+source ./python3_env/bin/activate
+export PYTHONPATH=$(pwd)
+```
