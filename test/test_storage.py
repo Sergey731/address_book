@@ -201,7 +201,7 @@ class TestSqlStorage(unittest.TestCase):
         tom = Contact('Tom Len', '+7888')
 
         storage.add_contact(john)
-        # results = storage.find_contacts('John Doe')
+        results = storage.find_contacts('John Doe')
 
         # self.assertEqual(len(results), 1)
         # self.assertEqual(john.name, results[0].name)
