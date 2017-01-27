@@ -1,6 +1,5 @@
 import sys
-
-from commands import add, remove, find, help
+from app.commands import add, remove, find, help
 
 
 command = sys.argv[1]

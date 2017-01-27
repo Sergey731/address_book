@@ -1,9 +1,10 @@
 from app.models import Contact
-from app.storage import FileStorage
+from app.storage import SqlStorage
+from app.settings import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 
 
-storage = FileStorage('book.txt')
 
+storage = SqlStorage(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD, database=MYSQL_DATABASE)
 
 def add(first_name, last_name, tel_number):
     name = '{} {}'.format(first_name, last_name)
@@ -17,7 +18,7 @@ def add(first_name, last_name, tel_number):
 
 def remove(first_name, last_name):
     name = '{} {}'.format(first_name, last_name)
-    result = storage.find_contacts(name)
+    result = storage.find_before_remove_contacts(first_name, last_name)
     if len(result) == 0:
         print('Unknown contact "{}"'.format(name))
     else:

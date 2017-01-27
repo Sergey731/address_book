@@ -122,7 +122,66 @@ class SqlStorage(Storage):
 
     def add_contact(self, contact):
         query = 'INSERT INTO contacts (first_name, last_name, phone) VALUES (%s, %s, %s)'
-        data = ('John', 'Doe', '+79999999999')
+        first_name, last_name = contact.name.split()
+        data = (first_name, last_name, contact.phone)
         self.cnx.cursor().execute(query, data)
         self.cnx.commit()
         return True
+
+
+    def find_before_remove_contacts(self, first_name, last_name):
+        cursor = self.cnx.cursor()
+        query = 'SELECT first_name, last_name, phone FROM contacts WHERE first_name = %s \
+        AND last_name = %s'
+        data = (first_name, last_name)
+        cursor.execute(query, data)
+        # self.cnx.commit()
+        result = []
+        for (first_name, last_name, phone) in cursor:
+            name = '{} {}'.format(first_name, last_name)
+            result.append(Contact(name, phone))
+        cursor.close()
+        return result
+
+
+    def remove_contact(self, contact):
+        first_name, last_name = contact.name.split()
+        cursor = self.cnx.cursor()
+        query = 'DELETE FROM contacts WHERE first_name = %s AND last_name = %s'
+        data = (first_name, last_name)
+        cursor.execute(query, data)
+        self.cnx.commit()
+        cursor.close()
+        return True
+
+
+    def find_contacts(self, request):
+        cursor = self.cnx.cursor()
+        query = 'SELECT first_name, last_name, phone FROM contacts WHERE first_name LIKE %s OR \
+        last_name LIKE %s OR phone LIKE %s'
+        data = ("%" + request + "%", "%" + request + "%", "%" + request + "%")
+        cursor.execute(query, data)
+        # self.cnx.commit()
+        result = []
+        for (first_name, last_name, phone) in cursor:
+            name = '{} {}'.format(first_name, last_name)
+            result.append(Contact(name, phone))
+        cursor.close()
+        return result
+
+
+    def clear_contacts(self):
+        cursor = self.cnx.cursor()
+        query = 'TRUNCATE TABLE contacts'
+        # data = (first_name, last_name)
+        cursor.execute(query,)
+        self.cnx.commit()
+        cursor.close()
+        return True
+
+
+
+
+
+
+
